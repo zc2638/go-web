@@ -6,6 +6,8 @@ import (
 	"api-demo/lib/database"
 	"api-demo/lib/jwt"
 	"api-demo/model"
+	"crypto/md5"
+	"encoding/hex"
 	"github.com/gin-gonic/gin"
 	"time"
 )
@@ -29,13 +31,18 @@ func (t *Auth) Login(c *gin.Context) {
 	}
 
 	db, err := database.Open()
+	defer db.Close()
 	if err != nil {
 		t.Err(c, "系统错误")
 		return
 	}
+
+	var m = md5.New()
+	m.Write([]byte(password))
+
 	var admin = model.Admin{
 		Name:     name,
-		Password: password,
+		Password: hex.EncodeToString(m.Sum(nil)),
 	}
 	db.First(&admin, admin)
 	if admin.ID == 0 {
@@ -44,6 +51,7 @@ func (t *Auth) Login(c *gin.Context) {
 	}
 
 	var data = map[string]interface{}{
+		"id": admin.ID,
 		"name": admin.Name,
 		"role": admin.Role,
 	}

@@ -7,6 +7,6 @@ import (
 
 type Index struct{ Base }
 
-func (ct *Index) Index(c *gin.Context) {
+func (t *Index) Index(c *gin.Context) {
 	c.String(http.StatusOK, "Hello World!")
 }

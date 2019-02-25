@@ -2,9 +2,13 @@ package middleware
 
 import (
 	"api-demo/config"
+	"api-demo/lib/database"
 	"api-demo/lib/jwt"
+	"api-demo/model"
 	"github.com/gin-gonic/gin"
+	"github.com/zctod/tool/common/utils"
 	"net/http"
+	"strings"
 )
 
 // 跨域支持
@@ -31,11 +35,48 @@ func AdminAuth(c *gin.Context) {
 
 	tokenStr := c.Request.Header.Get("token")
 	if jwt.CheckValid(tokenStr, config.JWT_SECRET_ADMIN) == false {
-		c.JSON(http.StatusOK, gin.H{
+		c.AbortWithStatusJSON(http.StatusOK, gin.H{
 			"code": config.CODE_FAIL,
 			"msg": "登陆失败",
 		})
 		return
 	}
+	db, err := database.Open()
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusOK, gin.H{
+			"code": config.CODE_FAIL,
+			"msg": "登陆失败，系统错误",
+		})
+		return
+	}
+	jwtData, err := jwt.ParseInfo(tokenStr, config.JWT_SECRET_ADMIN)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusOK, gin.H{
+			"code": config.CODE_FAIL,
+			"msg": "异常登录信息",
+		})
+		return
+	}
+	roleId, ok := jwtData["role"]
+	if !ok {
+		c.AbortWithStatusJSON(http.StatusOK, gin.H{
+			"code": config.CODE_FAIL,
+			"msg": "异常登录信息",
+		})
+		return
+	}
+
+	role := model.AdminRole{}
+	db.Where("id", roleId).First(&role)
+	rule := strings.Split(role.Rule, ",")
+	if exist, _ := utils.InArray(c.Request.URL, rule); !exist {
+		c.AbortWithStatusJSON(http.StatusOK, gin.H{
+			"code": config.CODE_FAIL,
+			"msg": "无此权限",
+		})
+		return
+	}
+	c.Set("admin", jwtData)
+
 	c.Next()
 }

@@ -25,5 +25,6 @@ func DBMigrate() {
 	// 自动生成表结构
 	db.AutoMigrate(
 		&model.Admin{},
+		&model.AdminRole{},
 	)
 }

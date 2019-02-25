@@ -13,3 +13,6 @@ const JWT_SECRET_ADMIN = "admin"
 
 // admin身份认证过期时间(小时)
 const JWT_EXP_ADMIN = 2
+
+// 分页,单页默认条数
+const PAGINATE_PAGESIZE = 15
