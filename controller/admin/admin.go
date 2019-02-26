@@ -66,7 +66,7 @@ func (t *Admin) Create(c *gin.Context) {
 	}
 
 	adminRole := model.AdminRole{}
-	db.Where("id", roleId).First(&adminRole)
+	db.Where("id = ?", roleId).First(&adminRole)
 	if adminRole.ID == 0 {
 		t.Err(c, "不存在的管理员分组")
 		return
@@ -113,7 +113,7 @@ func (t *Admin) Update(c *gin.Context) {
 	}
 
 	var admin = model.Admin{}
-	db.Where("id", id).First(&admin)
+	db.Where("id = ?", id).First(&admin)
 	if admin.ID == 0 {
 		t.Err(c, "不存在的管理员")
 		return
@@ -135,7 +135,7 @@ func (t *Admin) Update(c *gin.Context) {
 	roleIdN, _ := strconv.Atoi(roleId)
 	if roleIdN > 0 {
 		adminRole := model.AdminRole{}
-		db.Where("id", roleIdN).First(&adminRole)
+		db.Where("id = ?", roleIdN).First(&adminRole)
 		if adminRole.ID == 0 {
 			t.Err(c, "不存在的管理员分组")
 			return
@@ -161,7 +161,7 @@ func (t *Admin) Delete(c *gin.Context) {
 	}
 
 	admin := model.Admin{}
-	db.Where("id", id).First(&admin)
+	db.Where("id = ?", id).First(&admin)
 	if admin.ID == 0 {
 		t.Err(c, "不存在的管理员")
 		return
@@ -240,14 +240,14 @@ func (t *Admin) RoleUpdate(c *gin.Context) {
 	}
 
 	role := model.AdminRole{}
-	db.Where("id", id).First(&role)
+	db.Where("id = ?", id).First(&role)
 	if role.ID == 0 {
 		t.Err(c, "不存在的管理员分组")
 		return
 	}
 	if name != "" {
 		roleSelect := model.AdminRole{}
-		db.Where("name", name).First(&roleSelect)
+		db.Where("name = ?", name).First(&roleSelect)
 		if roleSelect.ID > 0 {
 			t.Err(c, "管理员分组名称已存在")
 			return
@@ -272,7 +272,7 @@ func (t *Admin) RoleDelete(c *gin.Context) {
 	}
 
 	role := model.AdminRole{}
-	db.Where("id", id).First(&role)
+	db.Where("id = ?", id).First(&role)
 	if role.ID == 0 {
 		t.Err(c, "不存在的管理员分组")
 		return

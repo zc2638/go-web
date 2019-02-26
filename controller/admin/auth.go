@@ -6,7 +6,6 @@ import (
 	"api-demo/lib/database"
 	"api-demo/lib/jwt"
 	"api-demo/model"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/zctod/tool/common/utils"
 	"time"
@@ -41,7 +40,6 @@ func (t *Auth) Login(c *gin.Context) {
 		Name:     name,
 		Password: utils.MD5(password),
 	}
-	fmt.Println(admin)
 	db.First(&admin, admin)
 	if admin.ID == 0 {
 		t.Err(c, "管理员账号密码错误")
@@ -49,7 +47,7 @@ func (t *Auth) Login(c *gin.Context) {
 	}
 
 	var adminRole = model.AdminRole{}
-	db.Where("id", admin.Role).First(&adminRole)
+	db.Where("id = ?", admin.Role).First(&adminRole)
 	if adminRole.ID == 0 {
 		t.Err(c, "当前管理员所在分组不存在")
 		return
@@ -109,14 +107,14 @@ func (t *Auth) Show(c *gin.Context) {
 	}
 
 	var admin = model.Admin{}
-	db.Where("id", id).First(&admin)
+	db.Where("id = ?", id).First(&admin)
 	if admin.ID == 0 {
 		t.Err(c, "不存在的管理员")
 		return
 	}
 
 	var adminRole = model.AdminRole{}
-	db.Where("id", roleId).First(&adminRole)
+	db.Where("id = ?", roleId).First(&adminRole)
 	if adminRole.ID == 0 {
 		t.Err(c, "不存在的管理员分组")
 		return
