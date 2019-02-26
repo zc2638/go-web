@@ -10,7 +10,7 @@ func routeAdmin(g *gin.Engine) {
 
 	admins := g.Group("/admin")
 
-	admins.GET("/login", new(admin.Auth).Login)
+	admins.POST("/login", new(admin.Auth).Login)
 	admins.GET("/logout", new(admin.Auth).Logout)
 	admins.GET("/show", new(admin.Auth).Show)
 
