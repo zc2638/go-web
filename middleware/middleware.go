@@ -73,18 +73,28 @@ func AdminAuth(c *gin.Context) {
 		})
 		return
 	}
-
-	role := model.AdminRole{}
-	db.Where("id", roleId).First(&role)
-	rule := strings.Split(role.Rule, ",")
-	if exist, _ := utils.InArray(c.Request.URL, rule); !exist {
+	name, ok := info.(map[string]interface{})["name"]
+	if !ok {
 		c.AbortWithStatusJSON(http.StatusOK, gin.H{
 			"code": config.CODE_FAIL,
-			"msg": "无此权限",
+			"msg": "异常登录信息&2",
 		})
 		return
 	}
-	c.Set("admin", jwtData)
+
+	if name != "admin" {
+		role := model.AdminRole{}
+		db.Where("id", roleId).First(&role)
+		rule := strings.Split(role.Rule, ",")
+		if exist, _ := utils.InArray(c.Request.URL, rule); !exist {
+			c.AbortWithStatusJSON(http.StatusOK, gin.H{
+				"code": config.CODE_FAIL,
+				"msg": "无此权限",
+			})
+			return
+		}
+	}
+	c.Set("admin", info.(map[string]interface{}))
 
 	c.Next()
 }
