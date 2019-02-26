@@ -79,24 +79,30 @@ func (t *Auth) Logout(c *gin.Context) {
 // 个人详情
 func (t *Auth) Show(c *gin.Context) {
 
-	tokenStrs, ok := c.Request.Header["token"]
-	if !ok {
+	tokenStr := c.Request.Header.Get("token")
+	if tokenStr == "" {
 		t.Err(c, "请先登录")
 		return
 	}
-	jwtData, err := jwt.ParseInfo(tokenStrs[0], config.JWT_SECRET_ADMIN)
+	jwtData, err := jwt.ParseInfo(tokenStr, config.JWT_SECRET_ADMIN)
 	if err != nil {
 		t.Err(c, "异常登录信息1")
 		return
 	}
-	id, ok := jwtData["id"]
+	info , ok := jwtData["info"]
 	if !ok {
 		t.Err(c, "异常登录信息2")
 		return
 	}
-	roleId, ok := jwtData["role"]
+	id, ok := info.(map[string]interface{})["id"]
 	if !ok {
 		t.Err(c, "异常登录信息3")
+		return
+	}
+	roleId, ok := info.(map[string]interface{})["role"]
+	if !ok {
+		t.Err(c, "异常登录信息4")
+		return
 	}
 
 	db, err := database.Open()

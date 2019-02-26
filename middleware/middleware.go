@@ -57,11 +57,19 @@ func AdminAuth(c *gin.Context) {
 		})
 		return
 	}
-	roleId, ok := jwtData["role"]
+	info, ok := jwtData["info"]
 	if !ok {
 		c.AbortWithStatusJSON(http.StatusOK, gin.H{
 			"code": config.CODE_FAIL,
 			"msg": "异常登录信息",
+		})
+		return
+	}
+	roleId, ok := info.(map[string]interface{})["role"]
+	if !ok {
+		c.AbortWithStatusJSON(http.StatusOK, gin.H{
+			"code": config.CODE_FAIL,
+			"msg": "异常登录信息&",
 		})
 		return
 	}
