@@ -6,6 +6,7 @@ import (
 	"api-demo/lib/database"
 	"api-demo/lib/jwt"
 	"api-demo/model"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/zctod/tool/common/utils"
 	"time"
@@ -40,9 +41,10 @@ func (t *Auth) Login(c *gin.Context) {
 		Name:     name,
 		Password: utils.MD5(password),
 	}
+	fmt.Println(admin)
 	db.First(&admin, admin)
 	if admin.ID == 0 {
-		t.Err(c, "不存在的管理员")
+		t.Err(c, "管理员账号密码错误")
 		return
 	}
 

@@ -3,6 +3,7 @@ package database
 import (
 	"api-demo/config"
 	"api-demo/model"
+	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 )
@@ -15,8 +16,9 @@ func Open() (*gorm.DB, error) {
 func DBMigrate() {
 
 	db, err := Open()
+	defer db.Close()
 	if err != nil {
-		panic("open sql error:" + err.Error())
+		fmt.Println("open sql error:" + err.Error())
 	}
 
 	// 禁用表名复数

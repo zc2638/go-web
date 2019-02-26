@@ -4,11 +4,11 @@ import "github.com/zctod/tool/config"
 
 // config 配置项
 type configure struct {
-	Name          string `config:"default:lottery"`
+	Name          string `config:"default:api_demo"`
 	Host          string `config:"default:127.0.0.1:8080"`
 	MysqlHost     string `config:"default:localhost"`
 	MysqlPort     string `config:"default:3306"`
-	MysqlDb       string `config:"default:lottery"`
+	MysqlDb       string `config:"default:admin_demo"`
 	MysqlUsername string `config:"default:root"`
 	MysqlPassword string
 }
