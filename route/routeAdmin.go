@@ -12,6 +12,7 @@ func routeAdmin(g *gin.Engine) {
 
 	admins.GET("/login", new(admin.Auth).Login)
 	admins.GET("/logout", new(admin.Auth).Logout)
+	admins.GET("/show", new(admin.Auth).Show)
 
 	admins.Use(middleware.AdminAuth)
 	{
