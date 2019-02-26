@@ -34,7 +34,13 @@ func (t *Admin) List(c *gin.Context) {
 	}
 	db.Find(&admins)
 
-	t.Data(c, utils.JsonToMap(admins))
+	data, err := utils.ArrayStructToMap(admins)
+	if err != nil {
+		t.Err(c, "解析出错")
+		return
+	}
+
+	t.Data(c, data)
 }
 
 // 管理员添加
@@ -189,7 +195,13 @@ func (t *Admin) RoleList(c *gin.Context) {
 	}
 	db.Find(&roles)
 
-	t.Data(c, utils.JsonToMap(roles))
+	data, err := utils.ArrayStructToMap(roles)
+	if err != nil {
+		t.Err(c, "解析出错")
+		return
+	}
+
+	t.Data(c, data)
 }
 
 // 管理员分组添加
