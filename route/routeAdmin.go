@@ -1,8 +1,8 @@
 package route
 
 import (
-	"api-demo/controller/admin"
-	"api-demo/middleware"
+	"go-web/controller/admin"
+	"go-web/middleware"
 	"github.com/gin-gonic/gin"
 )
 

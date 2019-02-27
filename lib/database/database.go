@@ -1,8 +1,8 @@
 package database
 
 import (
-	"api-demo/config"
-	"api-demo/model"
+	"go-web/config"
+	"go-web/model"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"

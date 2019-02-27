@@ -1,8 +1,8 @@
 package route
 
 import (
-	"api-demo/controller"
-	"api-demo/middleware"
+	"go-web/controller"
+	"go-web/middleware"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/zctod/tool/common/serverUtils"

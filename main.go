@@ -1,9 +1,9 @@
 package main
 
 import (
-	"api-demo/config"
-	"api-demo/lib/database"
-	"api-demo/route"
+	"go-web/config"
+	"go-web/lib/database"
+	"go-web/route"
 )
 
 // 数据库migrate: gorm

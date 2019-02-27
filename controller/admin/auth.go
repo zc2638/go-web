@@ -1,11 +1,11 @@
 package admin
 
 import (
-	"api-demo/config"
-	"api-demo/controller"
-	"api-demo/lib/database"
-	"api-demo/lib/jwt"
-	"api-demo/model"
+	"go-web/config"
+	"go-web/controller"
+	"go-web/lib/database"
+	"go-web/lib/jwt"
+	"go-web/model"
 	"github.com/gin-gonic/gin"
 	"github.com/zctod/tool/common/utils"
 	"time"

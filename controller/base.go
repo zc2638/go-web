@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"api-demo/config"
+	"go-web/config"
 	"errors"
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
