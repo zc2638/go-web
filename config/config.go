@@ -18,5 +18,8 @@ var Cfg = &configure{}
 // 初始化配置
 func Run() {
 	// 初始化配置文件
-	config.InitConfig(Cfg, PATH_ENV)
+	err := config.InitConfig(Cfg, PATH_ENV)
+	if err != nil {
+		panic(err)
+	}
 }
