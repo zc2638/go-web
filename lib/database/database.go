@@ -1,16 +1,27 @@
 package database
 
 import (
-	"go-web/config"
-	"go-web/model"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
+	"go-web/config"
+	"go-web/model"
 )
 
 func Open() (*gorm.DB, error) {
 	cfg := config.Cfg
-	return gorm.Open("mysql", cfg.MysqlUsername+":"+cfg.MysqlPassword+"@tcp("+cfg.MysqlHost+")/"+cfg.MysqlDb+"?charset=utf8mb4&parseTime=True&loc=Local")
+	var optionStr string
+	switch cfg.SqlDriver {
+	case "mysql":
+		optionStr = cfg.SqlUsername + ":" + cfg.SqlPassword + "@tcp(" + cfg.SqlHost + ":" + cfg.SqlPort + ")/" + cfg.SqlDb + "?charset=utf8mb4&parseTime=True&loc=Local"
+	case "postgres":
+		optionStr = "host=" + cfg.SqlHost + ":" + cfg.SqlPort + " user=" + cfg.SqlUsername + " dbname=" + cfg.SqlDb + " sslmode=disable password=" + cfg.SqlPassword
+		break
+	default:
+		break
+	}
+	return gorm.Open(cfg.SqlDriver, optionStr)
 }
 
 func DBMigrate() {
