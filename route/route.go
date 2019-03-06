@@ -1,11 +1,11 @@
 package route
 
 import (
-	"go-web/controller"
-	"go-web/middleware"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/zctod/tool/common/serverUtils"
+	"github.com/zctod/tool/common/util_server"
+	"go-web/controller"
+	"go-web/middleware"
 	"net/http"
 	"time"
 )
@@ -43,5 +43,5 @@ func startServer(g *gin.Engine) {
 	}()
 
 	// 平滑退出，先结束所有在执行的任务
-	serverUtils.GracefulExitWeb(server)
+	util_server.GracefulExitWeb(server)
 }
