@@ -11,7 +11,7 @@ require (
 	github.com/jinzhu/gorm v1.9.10
 	github.com/mattn/go-isatty v0.0.7 // indirect
 	github.com/ugorji/go v1.1.7 // indirect
-	github.com/zctod/go-tool v0.0.6
+	github.com/zctod/go-tool v0.0.7
 	gopkg.in/go-playground/validator.v8 v8.18.2 // indirect
 	gopkg.in/jcmturner/rpc.v1 v1.1.0 // indirect
 )
