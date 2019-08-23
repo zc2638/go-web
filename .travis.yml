@@ -8,4 +8,4 @@ env:
 sudo: false
 install: true
 script:
-- go build
+  - go build
