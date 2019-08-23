@@ -1,16 +1,11 @@
 language: go
-
 go:
-  - 1.12.x
-
+- 1.12.x
 dist: trusty
-
 env:
-  - GOPROXY=https://goproxy.io
-
+  global:
+    - GO111MODULE=on
 sudo: false
-
 install: true
-
 script:
-  - env GO111MODULE=on go build
+- go build
