@@ -1,6 +1,6 @@
 package config
 
-import "github.com/zctod/tool/config"
+import "github.com/zctod/go-tool/config"
 
 // config 配置项
 type configure struct {

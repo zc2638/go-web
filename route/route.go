@@ -3,7 +3,7 @@ package route
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/zctod/tool/common/util_server"
+	"github.com/zctod/go-tool/common/util_server"
 	"go-web/controller"
 	"go-web/middleware"
 	"net/http"

@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/zctod/tool/common/utils"
+	"github.com/zctod/go-tool/common/utils"
 	"go-web/config"
 	"go-web/lib/database"
 	"go-web/lib/jwt"
