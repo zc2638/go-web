@@ -9,3 +9,7 @@ sudo: false
 install: true
 script:
   - go build
+
+branchs:
+  only:
+    - master  #指定只有检测到master分支有变动时才执行任务
