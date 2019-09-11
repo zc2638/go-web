@@ -2,18 +2,18 @@ name: Go
 on: [push]
 jobs:
 
-  build:
+  build-test:
     name: Build
-    runs-on: ubuntu-latest
-    steps:
+    runs-on: ubuntu-latest # 环境
+    steps: # 步骤
 
-    - name: Set up Go 1.12
+    - name: Set up Go 1.12 # 设置go版本
       uses: actions/setup-go@v1
       with:
         go-version: 1.12
       id: go
 
-    - name: Check out code into the Go module directory
+    - name: Check out code into the Go module directory # clone代码
       uses: actions/checkout@v1
       
     - name: Build
